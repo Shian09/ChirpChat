@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "cd chirpchat-client && npm start",
-    "heroku-postbuild": "cd chirpchat-client && npm install && npm run build"
+    "heroku-postbuild": "cd chirpchat-client && npm install && npm run build",
+    "predeploy": "npm run build"
   }
 }
