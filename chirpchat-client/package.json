@@ -1,5 +1,6 @@
 {
   "name": "chirpchat-client",
+  "homepage": "https://chirpchat.netlify.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
