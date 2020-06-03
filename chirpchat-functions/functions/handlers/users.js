@@ -47,6 +47,7 @@ exports.signup = (req, res) => {
       const userCredentials = {
         handle: newUser.handle,
         email: newUser.email,
+        password: newUser.password,
         createdAt: new Date().toISOString(),
         imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
         userId,
@@ -360,5 +361,39 @@ exports.setMessages = (req, res) => {
     .catch((err) => {
       console.error(err);
       return res.status(500).json({ error: err.code });
+    });
+};
+
+/****************Delete User Account********************/
+exports.deleteUser = (req, res) => {
+  const document = db.doc(`/users/${req.params.handle}`);
+  const user = firebase.auth().currentUser;
+
+  document
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      if (doc.data().handle !== req.user.handle) {
+        return res.status(403).json({ error: "Unauthorized" });
+      } else {
+        user
+          .delete()
+          .then(() => {
+            return document.delete();
+          })
+          .catch((err) => {
+            console.error(err);
+            res.status(500).json({ error: err.code });
+          });
+      }
+    })
+    .then(() => {
+      return res.json({ message: "User deleted successfully" });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: err.code });
     });
 };

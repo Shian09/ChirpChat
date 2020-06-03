@@ -110,7 +110,7 @@ exports.commentOnScream = (req, res) => {
       return db.collection("comments").add(newComment);
     })
     .then(() => {
-      return res.json(newComment);
+      return res.json(newScream);
     })
     .catch((err) => {
       console.error(err);

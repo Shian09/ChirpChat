@@ -50,6 +50,18 @@
   background-color: #9999;
 }
 
+.viewMyProfile {
+  background-color: #eef0b5;
+  border: 1px #f4f4f4 solid;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.viewMyProfile:hover {
+  background-color: #fff;
+}
+
 .viewIndividual {
   background-color: #d4f0f0;
   border: 1px #f4f4f4 solid;

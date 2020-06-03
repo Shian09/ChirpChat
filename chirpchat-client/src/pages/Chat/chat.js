@@ -262,7 +262,7 @@ class chat extends Component {
       <div className="root">
         <div className="body">
           <div className="viewListUser">
-            <div className="profileviewleftside">
+            {/* <div className="profileviewleftside">
               <div className="profileAlign">
                 <img
                   className="ProfilePicture"
@@ -282,7 +282,22 @@ class chat extends Component {
                   You
                 </Typography>
               </div>
-            </div>
+            </div> */}
+
+            <Link to={`/users/${this.currentUserName}`}>
+              <button className="viewMyProfile">
+                <img
+                  className="viewAvatarItem"
+                  src={this.currentUserPhoto}
+                  alt=""
+                />
+                <div className="viewWrapContentItem">
+                  <span className="textItem">{` ${this.currentUserName}`}</span>
+                  <span>You</span>
+                </div>
+              </button>
+            </Link>
+
             <div className="rootsearchbar">
               <div className="input-container">
                 <input

@@ -26,6 +26,7 @@ const {
   updateMessageAfterNotificationErase,
   getNotificationOnMessage,
   setMessages,
+  deleteUser,
 } = require("./handlers/users");
 const FBAuth = require("./util/fbAuth");
 
@@ -37,6 +38,7 @@ app.post("/user", FBAuth, addUserDetails);
 app.get("/user", FBAuth, getAuthenticatedUser);
 app.get("/user/:handle", getUserDetails);
 app.post("/notifications", FBAuth, markNotificationsRead);
+app.delete("/user/:handle", FBAuth, deleteUser);
 
 //Chat routes
 app.get("/user/:handle/messages", FBAuth, getNotificationOnMessage);
@@ -178,6 +180,69 @@ exports.onScreamDelete = functions.firestore
         return db
           .collection("notifications")
           .where("screamId", "==", screamId)
+          .get();
+      })
+      .then((data) => {
+        data.forEach((doc) => {
+          batch.delete(db.doc(`/notifications/${doc.id}`));
+        });
+        return batch.commit();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+
+exports.onUserDelete = functions.firestore
+  .document("/users/{handle}")
+  .onDelete((snapshot, context) => {
+    const handle = context.params.handle;
+    const batch = db.batch();
+    return db
+      .collection("screams")
+      .where("userHandle", "==", handle)
+      .get()
+      .then((data) => {
+        data.forEach((doc) => {
+          batch.delete(db.doc(`screams/${doc.id}`));
+        });
+        return db
+          .collection("comments")
+          .where("userHandle", "==", handle)
+          .get();
+      })
+      .then((data) => {
+        data.forEach((doc) => {
+          db.doc(`/screams/${doc.data().screamId}`)
+            .get()
+            .then((item) => {
+              item.ref.update({ commentCount: item.data().commentCount - 1 });
+            });
+          batch.delete(db.doc(`/comments/${doc.id}`));
+        });
+        return db.collection("likes").where("userHandle", "==", handle).get();
+      })
+      .then((data) => {
+        data.forEach((doc) => {
+          db.doc(`/screams/${doc.data().screamId}`)
+            .get()
+            .then((item) => {
+              item.ref.update({ likeCount: item.data().likeCount - 1 });
+            });
+          batch.delete(db.doc(`/likes/${doc.id}`));
+        });
+        return db
+          .collection("notifications")
+          .where("recipient", "==", handle)
+          .get();
+      })
+      .then((data) => {
+        data.forEach((doc) => {
+          batch.delete(db.doc(`/notifications/${doc.id}`));
+        });
+        return db
+          .collection("notifications")
+          .where("sender", "==", handle)
           .get();
       })
       .then((data) => {

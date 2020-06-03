@@ -131,6 +131,28 @@ export const markNotificationsRead = (notificationIds) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+/****************Delete user***************/
+export const deleteUser = (handle) => (dispatch) => {
+  axios
+    .delete(`/user/${handle}`)
+    .then(() => {
+      localStorage.removeItem("FBIdToken");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("handle");
+      localStorage.removeItem("email");
+      localStorage.removeItem("photoUrl");
+      localStorage.removeItem("state_changed");
+      localStorage.removeItem("mydescription");
+      localStorage.removeItem("FirebaseDocumentId");
+      localStorage.removeItem("randid");
+      delete axios.defaults.headers.common["Authorization"];
+      dispatch({
+        type: SET_UNAUTHENTICATED,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
 const setAuthorizationHeader = (token) => {
   const FBIdToken = `Bearer ${token}`;
   //Storing token to localStorage so that refreshing or closing browser doesn't cause problems

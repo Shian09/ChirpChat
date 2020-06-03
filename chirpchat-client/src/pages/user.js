@@ -5,6 +5,8 @@ import Scream from "../components/scream/Scream";
 import StaticProfile from "../components/profile/StaticProfile";
 import ScreamSkeleton from "../util/ScreamSkeleton";
 import ProfileSkeleton from "../util/ProfileSkeleton";
+import DeleteUser from "../components/profile/DeleteUser";
+
 //MUI
 import Grid from "@material-ui/core/Grid";
 
@@ -33,7 +35,14 @@ class user extends Component {
 
   render() {
     const { screams, loading } = this.props.data;
+    const { authenticated, userHandle } = this.props;
     const { screamIdParam } = this.state;
+    const handle = this.props.match.params.handle;
+
+    const deleteButton =
+      authenticated && userHandle === handle ? (
+        <DeleteUser handle={handle} />
+      ) : null;
 
     const screamsMarkUp = loading ? (
       <p>
@@ -64,6 +73,7 @@ class user extends Component {
           ) : (
             <StaticProfile profile={this.state.profile} />
           )}
+          <div>{deleteButton}</div>
         </Grid>
       </Grid>
     );
@@ -73,10 +83,14 @@ class user extends Component {
 user.propTypes = {
   getUserData: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
+  userHandle: PropTypes.object.isRequired,
+  authenticated: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   data: state.data,
+  userHandle: state.user.credentials.handle,
+  authenticated: state.user.authenticated,
 });
 
 export default connect(mapStateToProps, { getUserData })(user);

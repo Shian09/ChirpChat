@@ -21,6 +21,10 @@ const styles = {
   titleName: {
     fontWeight: "bold",
     fontFamily: "Comic Sans MS, cursive, sans-serif",
+    color: "white",
+    "&:hover": {
+      color: "white",
+    },
   },
 };
 
@@ -31,9 +35,25 @@ class Navbar extends Component {
     return (
       <AppBar>
         <Toolbar>
-          <Typography variant="h5" className={classes.titleName}>
-            ChirpChat
-          </Typography>
+          {authenticated ? (
+            <Typography
+              variant="h5"
+              className={classes.titleName}
+              component={Link}
+              to="/home"
+            >
+              ChirpChat
+            </Typography>
+          ) : (
+            <Typography
+              variant="h5"
+              className={classes.titleName}
+              component={Link}
+              to="/"
+            >
+              ChirpChat
+            </Typography>
+          )}
 
           <Toolbar className="nav-container">
             {authenticated ? (
