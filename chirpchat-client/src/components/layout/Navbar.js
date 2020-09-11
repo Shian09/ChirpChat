@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import MyButton from "../../util/MyButton";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import PostScream from "../scream/PostScream";
