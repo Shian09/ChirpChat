@@ -1,6 +1,6 @@
 {
   "scripts": {
     "start": "cd chirpchat-client && npm start",
-    "build": "cd chirpchat-client && npm install && npm run build"
+    "build": "cd chirpchat-client && npm install && CI = npm run build"
   }
 }
