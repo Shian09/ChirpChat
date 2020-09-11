@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import MyButton from "../../util/MyButton";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import PostScream from "../scream/PostScream";
@@ -59,11 +59,11 @@ class Navbar extends Component {
             {authenticated ? (
               <Fragment>
                 <PostScream />
-                <Link to="/home">
+                <NavLink exact to="/home">
                   <MyButton tip="Home">
                     <HomeIcon />
                   </MyButton>
-                </Link>
+                </NavLink>
                 <ChatIconNavbar />
                 <Notifications />
               </Fragment>

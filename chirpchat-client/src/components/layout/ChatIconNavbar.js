@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MyButton from "../../util/MyButton";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -22,21 +22,21 @@ class ChatIconNavbar extends Component {
       messages[0].notificationId.length !== 0
     ) {
       chatIcon.push(
-        <Link to="/chat">
+        <NavLink exact to="/chat">
           <MyButton tip="Chat">
             <Badge badgeContent={messages.length} color="error">
               <ChatIcon />
             </Badge>
           </MyButton>
-        </Link>
+        </NavLink>
       );
     } else {
       chatIcon.push(
-        <Link to="/chat">
+        <NavLink exact to="/chat">
           <MyButton tip="Chat">
             <ChatIcon />
           </MyButton>
-        </Link>
+        </NavLink>
       );
     }
     return chatIcon;
