@@ -8,9 +8,6 @@ import LoginString from "../LoginStrings";
 import ChatBox from "./ChatBox/chatBox";
 import Welcome from "./Welcome/welcome";
 
-//Material-UI
-import Typography from "@material-ui/core/Typography";
-
 //Redux Stuff
 import { connect } from "react-redux";
 import { logoutUser, updaterenderList } from "../../redux/actions/userActions";
