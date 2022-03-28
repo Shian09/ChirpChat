@@ -2,6 +2,8 @@
 
 A social media web app where people are called Chirpers. They can post their daily chirp, upload images, comment, like on them, can chat with each other.
 
+The video of the website: https://drive.google.com/file/d/10Vrr7xTY7BkBV8rXb4V2H198XJmnS7qm/view?usp=sharing
+
 1. A user can create his/her account.
 
 Image: https://i.imgur.com/6l3Jgdr.jpg
