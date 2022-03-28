@@ -20,7 +20,7 @@ class home extends Component {
       screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
     ) : (
       <p>
-        <ScreamSkeleton />>
+        <ScreamSkeleton />
       </p>
     );
 
